@@ -223,9 +223,12 @@
     </Compile>
     <Compile Include="Infrastructure\Caching\MemoryCacher.cs" />
     <Compile Include="Infrastructure\HttpClient\InventoryRetriever.cs" />
-    <Compile Include="Models\OrderEntryViewModel.cs" />
-    <Compile Include="Models\OrderItemViewModel.cs" />
-    <Compile Include="Models\ProductViewModel.cs" />
+    <Compile Include="Models\OrderEntry\Get\CustomerViewModel.cs" />
+    <Compile Include="Models\OrderEntry\Get\OrderDetailViewModel.cs" />
+    <Compile Include="Models\OrderEntry\Get\OrderViewModel.cs" />
+    <Compile Include="Models\OrderEntry\Post\OrderEntryViewModel.cs" />
+    <Compile Include="Models\OrderEntry\Post\OrderItemViewModel.cs" />
+    <Compile Include="Models\OrderEntry\Post\ProductViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

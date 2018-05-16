@@ -9,5 +9,7 @@ namespace DAL
     public interface IPetStoreRepository
     {
         void Save(Common.IOrder order);
+
+        Models.Customer GetCustomerById(int customerId);
     }
 }

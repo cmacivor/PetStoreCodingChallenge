@@ -12,6 +12,7 @@ using CodingChallenge.Infrastructure.HttpClient;
 using CodingChallenge.Infrastructure.Caching;
 using Common;
 using DAL;
+using CodingChallenge.Models.OrderEntry.Get;
 
 namespace CodingChallenge.Controllers
 {
@@ -30,16 +31,57 @@ namespace CodingChallenge.Controllers
         {
             //do error handling here- fail early
 
-            var inventory = await GetInventory();
+           var inventory = await GetInventory();
 
            var orderDTO = MapInventoryToBusinessObjects(order, inventory);
 
-            orderDTO.CalculateTotalCost();
+           orderDTO.CalculateTotalCost();
 
-            //var repo = new PetStoreRepository();
-            //repo.Save(orderDTO);
-            _repository.Save(orderDTO);
+           _repository.Save(orderDTO);
+        }
+            
+        public IHttpActionResult Get(int id)
+        {
+            var ordersByCustomerId = _repository.GetCustomerById(id);
 
+            var orderVMs = new List<OrderViewModel>();
+
+            foreach (var order in ordersByCustomerId.Orders)
+            {
+                var orderDetails = new List<IOrderDetail>();
+                foreach (var detail in order.OrderDetails)
+                {
+                    var orderDetailVM = new OrderDetailViewModel
+                    {
+                         OrderDetailId = detail.OrderDetailId,
+                         OrderId = detail.OrderId,
+                         ProductCategory = detail.ProductCategory,
+                         ProductId = detail.ProductId,
+                         ProductName = detail.ProductName,
+                         ProductPrice = detail.ProductPrice,
+                         Quantity = detail.Quantity
+                    };
+
+                    orderDetails.Add(orderDetailVM);
+                }
+
+                var orderVM = new OrderViewModel
+                {
+                     OrderId = order.OrderId,
+                     TotalCost = order.TotalCost,
+                     OrderDetails = orderDetails
+                };
+
+                orderVMs.Add(orderVM);
+            }
+
+            var customerVM = new CustomerViewModel
+            {
+                CustomerId = ordersByCustomerId.CustomerId,
+                Orders = orderVMs
+            };
+
+            return Ok(new { results = customerVM });
         }
 
         private static Order MapInventoryToBusinessObjects(OrderEntryViewModel order, List<ProductViewModel> inventory)

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace DAL
 {
@@ -49,11 +50,9 @@ namespace DAL
 
         private static void SaveOrder(Common.IOrder order, PetStoreDbContext context, Customer customer)
         {
-            //int customerId = (customer == null) ? order.CustomerId : customer.CustomerId;
-
             var newOrder = new Order
             {
-                CustomerId = (customer == null) ? order.CustomerId : customer.CustomerId, //order.CustomerId, //customerId, //customer.CustomerId,
+                CustomerId = (customer == null) ? order.CustomerId : customer.CustomerId, 
                 TotalCost = order.TotalCost
             };
 
@@ -78,6 +77,17 @@ namespace DAL
             }
 
             context.SaveChanges();
+        }
+
+        public Customer GetCustomerById(int customerId)
+        {
+            using (var context = new PetStoreDbContext())
+            {
+                //var test = context.Customers.FirstOrDefault(x => x.CustomerId == customerId);
+                var customer = context.Customers.Where(x => x.CustomerId == customerId).Include(x => x.Orders.Select(y => y.OrderDetails)).FirstOrDefault();
+
+                return customer;
+            }
         }
     }
 }
