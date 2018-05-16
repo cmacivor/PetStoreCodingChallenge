@@ -10,6 +10,8 @@ namespace DAL
 {
     public class PetStoreDbContext : DbContext
     {
+        public PetStoreDbContext() : base("DAL.PetStoreDbContext") { }
+
 
         public DbSet<Customer> Customers { get; set; }
 

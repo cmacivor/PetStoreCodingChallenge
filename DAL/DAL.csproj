@@ -48,6 +48,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IPetStoreRepository.cs" />
+    <Compile Include="Migrations\201805161845502_InitialCreate.cs" />
+    <Compile Include="Migrations\201805161845502_InitialCreate.Designer.cs">
+      <DependentUpon>201805161845502_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805161926348_MakeKeyNotGenerated.cs" />
+    <Compile Include="Migrations\201805161926348_MakeKeyNotGenerated.Designer.cs">
+      <DependentUpon>201805161926348_MakeKeyNotGenerated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PetStoreRepository.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Order.cs" />
@@ -64,6 +73,14 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201805161845502_InitialCreate.resx">
+      <DependentUpon>201805161845502_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805161926348_MakeKeyNotGenerated.resx">
+      <DependentUpon>201805161926348_MakeKeyNotGenerated.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
