@@ -16,5 +16,10 @@ namespace BusinessTier
         public decimal TotalCost { get; set; }
 
         public List<OrderDetail> OrderItems { get; set; }
+
+        public void CalculateTotalCost()
+        {
+            TotalCost = OrderItems.Select(x => x.ProductPrice).Sum();
+        }
     }
 }

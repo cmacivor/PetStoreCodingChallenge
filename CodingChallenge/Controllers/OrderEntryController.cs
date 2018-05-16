@@ -21,8 +21,43 @@ namespace CodingChallenge.Controllers
         {
             //do error handling here- fail early
 
+            var inventory = await GetInventory();
+
+           var orderDTO = MapInventoryToBusinessObjects(order, inventory);
+
+            orderDTO.CalculateTotalCost();
+        }
+
+        private static Order MapInventoryToBusinessObjects(OrderEntryViewModel order, List<ProductViewModel> inventory)
+        {
+            //mapping this manually but we could maybe use AutoMapper for this
+            var orderDetails = new List<OrderDetail>();
+            foreach (var detail in order.items)
+            {
+                var productFromInventory = inventory.FirstOrDefault(x => x.Id == detail.productId);
+                orderDetails.Add(new OrderDetail
+                {
+                    ProductId = detail.productId,
+                    Quantity = detail.quantity,
+                    ProductName = productFromInventory.Name,
+                    ProductCategory = productFromInventory.Category,
+                    ProductPrice = productFromInventory.Price
+                });
+            }
+
+            var orderDTO = new Order
+            {
+                CustomerId = order.customerId,
+                OrderItems = orderDetails
+            };
+
+            return orderDTO;
+        }
+
+        private static async Task<List<ProductViewModel>> GetInventory()
+        {
             //put put in the cache if it's not already there
-            List<ProductViewModel> inventory; 
+            List<ProductViewModel> inventory;
             var cache = (List<ProductViewModel>)MemoryCacher.GetValue("Inventory");
             if (cache == null)
             {
@@ -35,23 +70,7 @@ namespace CodingChallenge.Controllers
                 inventory = cache;
             }
 
-
-            //mapping this manually but we could use AutoMapper for this
-            var orderDetails = new List<OrderDetail>();
-            foreach (var detail in order.items)
-            {
-                orderDetails.Add(new OrderDetail
-                {
-                    ProductId = detail.productId,
-                    Quantity = detail.quantity
-                });
-            }
-
-            var orderDTO = new Order
-            {
-               CustomerId = order.customerId,
-               OrderItems = orderDetails
-            };
+            return inventory;
         }
     }
 }
