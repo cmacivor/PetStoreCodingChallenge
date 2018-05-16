@@ -30,8 +30,6 @@ namespace DAL
                             context.Customers.Add(newCustomer);
                             context.SaveChanges();
 
-                            //int customerId = newCustomer.CustomerId;
-
                             SaveOrder(order, context, newCustomer);
                         }
                         else //customer already in the database

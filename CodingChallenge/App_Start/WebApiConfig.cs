@@ -1,7 +1,10 @@
-﻿using System;
+﻿using DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Unity;
+using Unity.Lifetime;
 
 namespace CodingChallenge
 {
@@ -19,6 +22,11 @@ namespace CodingChallenge
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            //Unity Config
+            var container = new UnityContainer();
+            container.RegisterType<IPetStoreRepository, PetStoreRepository>(new HierarchicalLifetimeManager());
+            config.DependencyResolver = new UnityResolver(container);
         }
     }
 }

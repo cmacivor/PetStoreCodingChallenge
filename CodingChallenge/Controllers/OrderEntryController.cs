@@ -17,6 +17,13 @@ namespace CodingChallenge.Controllers
 {
     public class OrderEntryController : ApiController
     {
+        private readonly IPetStoreRepository _repository;
+
+        public OrderEntryController(IPetStoreRepository petStoreRepository)
+        {
+            _repository = petStoreRepository;
+        }
+
 
         // POST api/values
         public async void Post([FromBody]OrderEntryViewModel order)
@@ -29,8 +36,10 @@ namespace CodingChallenge.Controllers
 
             orderDTO.CalculateTotalCost();
 
-            var repo = new PetStoreRepository();
-            repo.Save(orderDTO);
+            //var repo = new PetStoreRepository();
+            //repo.Save(orderDTO);
+            _repository.Save(orderDTO);
+
         }
 
         private static Order MapInventoryToBusinessObjects(OrderEntryViewModel order, List<ProductViewModel> inventory)
