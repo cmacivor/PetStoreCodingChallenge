@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class Class1
+    public interface IPetStoreRepository
     {
+        void Save(Common.IOrder order);
     }
 }

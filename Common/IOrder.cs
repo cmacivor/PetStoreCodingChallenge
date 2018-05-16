@@ -10,8 +10,10 @@ namespace Common
     {
         int OrderId { get; set; }
 
-        string CustomerId { get; set; }
+        int CustomerId { get; set; }
 
         decimal TotalCost { get; set; }
+
+        List<IOrderDetail> OrderDetails { get; set; }
     }
 }

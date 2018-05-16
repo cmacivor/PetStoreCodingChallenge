@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BusinessTier;
+using Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace PetStoreTests
@@ -12,12 +13,12 @@ namespace PetStoreTests
         public void CalculateTotalCost_WhenCalled_SumsOrderItemPrices()
         {
             //Arrange
-            var orderItems = new List<OrderDetail>();
+            var orderItems = new List<IOrderDetail>();
             orderItems.Add(new OrderDetail
             {
-                 ProductId = "70508895",
-                 ProductName = "Scratching Post",
-                 ProductPrice = 32.95m
+                ProductId = "70508895",
+                ProductName = "Scratching Post",
+                ProductPrice = 32.95m
             });
             orderItems.Add(new OrderDetail
             {
@@ -28,8 +29,8 @@ namespace PetStoreTests
 
             var order = new BusinessTier.Order
             {
-                CustomerId = "123",
-                OrderItems = orderItems
+                CustomerId = 123,
+                OrderDetails = orderItems
             };
 
             //Act

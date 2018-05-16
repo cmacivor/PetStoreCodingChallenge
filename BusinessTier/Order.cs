@@ -11,15 +11,15 @@ namespace BusinessTier
     {
         public int OrderId { get; set; }
 
-        public string CustomerId { get; set; }
+        public int CustomerId { get; set; }
 
         public decimal TotalCost { get; set; }
 
-        public List<OrderDetail> OrderItems { get; set; }
+        public List<IOrderDetail> OrderDetails { get; set; }
 
         public void CalculateTotalCost()
         {
-            TotalCost = OrderItems.Select(x => x.ProductPrice).Sum();
+            TotalCost = OrderDetails.Select(x => x.ProductPrice).Sum();
         }
     }
 }

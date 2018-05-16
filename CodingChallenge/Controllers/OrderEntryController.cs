@@ -10,6 +10,8 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using CodingChallenge.Infrastructure.HttpClient;
 using CodingChallenge.Infrastructure.Caching;
+using Common;
+using DAL;
 
 namespace CodingChallenge.Controllers
 {
@@ -26,12 +28,15 @@ namespace CodingChallenge.Controllers
            var orderDTO = MapInventoryToBusinessObjects(order, inventory);
 
             orderDTO.CalculateTotalCost();
+
+            var repo = new PetStoreRepository();
+            repo.Save(orderDTO);
         }
 
         private static Order MapInventoryToBusinessObjects(OrderEntryViewModel order, List<ProductViewModel> inventory)
         {
             //mapping this manually but we could maybe use AutoMapper for this
-            var orderDetails = new List<OrderDetail>();
+            var orderDetails = new List<IOrderDetail>();
             foreach (var detail in order.items)
             {
                 var productFromInventory = inventory.FirstOrDefault(x => x.Id == detail.productId);
@@ -47,10 +52,10 @@ namespace CodingChallenge.Controllers
 
             var orderDTO = new Order
             {
-                CustomerId = order.customerId,
-                OrderItems = orderDetails
+                CustomerId = Convert.ToInt32(order.customerId),
+                OrderDetails = orderDetails
             };
-
+          
             return orderDTO;
         }
 
