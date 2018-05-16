@@ -10,7 +10,6 @@ namespace DAL.Models
 {
     public class Customer : ICustomer
     {
-        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int CustomerId { get; set; }
 
         public virtual List<Order> Orders { get; set; }

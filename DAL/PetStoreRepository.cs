@@ -49,11 +49,11 @@ namespace DAL
 
         private static void SaveOrder(Common.IOrder order, PetStoreDbContext context, Customer customer)
         {
-            int customerId = (customer == null) ? order.CustomerId : customer.CustomerId;
+            //int customerId = (customer == null) ? order.CustomerId : customer.CustomerId;
 
             var newOrder = new Order
             {
-                CustomerId = customerId, //customer.CustomerId,
+                CustomerId = (customer == null) ? order.CustomerId : customer.CustomerId, //order.CustomerId, //customerId, //customer.CustomerId,
                 TotalCost = order.TotalCost
             };
 
