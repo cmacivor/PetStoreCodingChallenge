@@ -29,7 +29,7 @@ namespace CodingChallenge.Controllers
         // POST api/values
         public async void Post([FromBody]OrderEntryViewModel order)
         {
-            //do error handling here- fail early
+           //TODO error handling here- fail early
 
            var inventory = await GetInventory();
 
@@ -112,7 +112,7 @@ namespace CodingChallenge.Controllers
 
         private static async Task<List<ProductViewModel>> GetInventory()
         {
-            //put put in the cache if it's not already there
+            //put inventory in the cache if it's not already there- this way we avoid having to make an API call for every product
             List<ProductViewModel> inventory;
             var cache = (List<ProductViewModel>)MemoryCacher.GetValue("Inventory");
             if (cache == null)

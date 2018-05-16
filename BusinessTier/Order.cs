@@ -19,7 +19,7 @@ namespace BusinessTier
 
         public void CalculateTotalCost()
         {
-            TotalCost = OrderDetails.Select(x => x.ProductPrice).Sum();
+            TotalCost = OrderDetails.Select(x => x.SubTotal).Sum();
         }
     }
 }

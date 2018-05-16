@@ -21,5 +21,7 @@ namespace CodingChallenge.Models.OrderEntry.Get
         public string ProductName { get; set; }
 
         public decimal ProductPrice { get; set; }
+
+        public decimal SubTotal { get; set; }
     }
 }

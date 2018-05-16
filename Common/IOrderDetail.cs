@@ -21,5 +21,7 @@ namespace Common
         string ProductName { get; set; }
 
         decimal ProductPrice { get; set; }
+
+        decimal SubTotal { get; }
     }
 }

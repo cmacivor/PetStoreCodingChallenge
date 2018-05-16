@@ -83,7 +83,6 @@ namespace DAL
         {
             using (var context = new PetStoreDbContext())
             {
-                //var test = context.Customers.FirstOrDefault(x => x.CustomerId == customerId);
                 var customer = context.Customers.Where(x => x.CustomerId == customerId).Include(x => x.Orders.Select(y => y.OrderDetails)).FirstOrDefault();
 
                 return customer;

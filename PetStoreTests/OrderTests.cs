@@ -18,12 +18,14 @@ namespace PetStoreTests
             {
                 ProductId = "70508895",
                 ProductName = "Scratching Post",
+                Quantity = 1,
                 ProductPrice = 32.95m
             });
             orderItems.Add(new OrderDetail
             {
                 ProductId = "8ed0e6f7",
                 ProductName = "Stroller",
+                Quantity = 2,
                 ProductPrice = 124.95m
             });
 
@@ -36,9 +38,8 @@ namespace PetStoreTests
             //Act
             order.CalculateTotalCost();
 
-
             //Assert
-            Assert.AreEqual(157.90m, order.TotalCost);
+            Assert.AreEqual(282.85m, order.TotalCost);
         }
     }
 }
