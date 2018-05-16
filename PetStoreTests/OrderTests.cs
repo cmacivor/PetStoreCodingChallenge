@@ -11,7 +11,6 @@ namespace PetStoreTests
         [TestMethod]
         public void CalculateTotalCost_WhenCalled_SumsOrderItemPrices()
         {
-
             //Arrange
             var orderItems = new List<OrderDetail>();
             orderItems.Add(new OrderDetail
