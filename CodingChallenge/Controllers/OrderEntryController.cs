@@ -92,16 +92,18 @@ namespace CodingChallenge.Controllers
             {
                 var productFromInventory = inventory.FirstOrDefault(x => x.Id == detail.productId);
 
-                //TODO: need to handle case when the item is not found in the inventory
-
-                orderDetails.Add(new OrderDetail
+                if (productFromInventory != null)
                 {
-                    ProductId = detail.productId,
-                    Quantity = detail.quantity,
-                    ProductName = productFromInventory.Name,
-                    ProductCategory = productFromInventory.Category,
-                    ProductPrice = productFromInventory.Price
-                });
+                    orderDetails.Add(new OrderDetail
+                    {
+                        ProductId = detail.productId,
+                        Quantity = detail.quantity,
+                        ProductName = productFromInventory.Name,
+                        ProductCategory = productFromInventory.Category,
+                        ProductPrice = productFromInventory.Price
+                    });
+                }
+                //TODO- handle case when item is not in the inventory
             }
 
             var orderDTO = new Order
